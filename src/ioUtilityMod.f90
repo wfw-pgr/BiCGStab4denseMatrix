@@ -18,8 +18,8 @@ contains
     read(lun,*) LI, LJ
     allocate( Amat(LI,LJ), xvec(LJ) )
     xvec(:) = 0.d0
-    do j=1, LJ
-       read(lun,*) Amat(:,j)
+    do i=1, LI
+       read(lun,*) Amat(i,:)
     enddo
     close(lun)
     write(6,*) "[load__MatrixVector] AmatFile is loaded...."
@@ -60,15 +60,15 @@ contains
   subroutine save__xvector
     use variablesMod
     implicit none
-    integer :: i
+    integer :: j
 
     ! ------------------------------------------------------ !
     ! --- [1] save xvector                               --- !
     ! ------------------------------------------------------ !
     open(lun,file=trim(xvecFile),status="replace")
-    do i=1, LI
-       write(lun,*) xvec(i)
-       write(6  ,*) xvec(i)
+    do j=1, LJ
+       write(lun,*) xvec(j)
+       write(6  ,*) xvec(j)
     enddo
     close(lun)
     write(6,*) "[save__xvector] xvecFile is saved...."
